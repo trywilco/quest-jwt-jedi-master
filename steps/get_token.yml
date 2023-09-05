@@ -1,0 +1,47 @@
+id: get_token
+learningObjectives:
+  - Understand the JWT concept and its benefits.
+hints:
+  - Use a JWT debugger to help you decode the token.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: Hey again! Lucca here. Ready for a new challenge?
+          - text: We're going to get our hands dirty with JWT again. You're going to fetch the JWT from the current session and try to decode it.
+          - text: Your mission starts now! Log in to the Anythink market and let's see what's in the payload.
+          - text: "I'll be waiting for you here. :instruction[Decode the JWT token and send the **payload** JSON object to me]."
+trigger:
+  type: user_message
+  params:
+    person: lucca
+  flowNode:
+    if:
+      conditions:
+        - conditionId: text_contains_strings
+          params:
+            text: "${userMessageText}"
+            strings: # verify all the JWT properties exist
+              - - id
+                - username
+                - exp
+                - iat
+      then:
+        do:
+          - actionId: bot_message
+            params:
+              person: lucca
+              messages:
+                - text: "Well done! I had faith in you."
+                  delay: 2000
+          - actionId: finish_step
+      else:
+        do:
+          - actionId: bot_message
+            params:
+              person: lucca
+              messages:
+                - text: "Doesn't seem right to me, try again."
+                  delay: 2000

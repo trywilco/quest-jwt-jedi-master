@@ -1,0 +1,76 @@
+id: redirect_expired_token
+learningObjectives:
+  - Handle JWT expiry on the front end and back end.
+hints:
+  - On the back end, verify the JWT and check the 'exp' claim to determine its
+    expiry status.
+  - On the front end, monitor error responses and redirect the user to the login
+    page in case of an 'unauthorized' error.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: When our JWT expires, we don’t want to leave our users hanging, confused and lost.
+          - text: Your mission, should you choose to accept it (no pressure!), is to redirect them to our splendid login screen.
+          - text: After all, they should know they're always welcome back.
+          - text: :instruction[Open a PR that redirect users to the login screen when their JWT expires.]
+
+trigger:
+  type: github_pr_lifecycle_status
+  flowNode:
+    switch:
+      key: "${eventType}"
+      cases:
+        github_pr_opened:
+          do:
+            - actionId: github_pr_comment
+              params:
+                person: lucca
+                message: "Reviewing this right now, let's see..."
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Got your PR, going over it right now."
+                    delay: 100
+        github_pr_workflow_complete_failure:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Make sure your fix passes all the checks, then try again please."
+                    delay: 3000
+            - actionId: github_pr_reject
+              params:
+                person: lucca
+                message: "Looks like this code change didn't resolve the issue. Can you take a second look?"
+        github_pr_workflow_complete_success:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Nice job, go ahead and merge this PR."
+                    delay: 2000
+            - actionId: github_pr_approve
+              params:
+                person: lucca
+                message: "Nailed it! Excellent job @${user.githubuser}! You can now merge the PR."
+        github_pr_merged:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Wow, you're facing these challenges like a pro! I’m lucky to have you as a sidekick."
+                    delay: 1500
+            - actionId: finish_step
+githubActions:
+  backend:
+  frontend:
+    capabilities:
+      - jest-puppeteer
+    testFile: "redirect_expired.test.js"

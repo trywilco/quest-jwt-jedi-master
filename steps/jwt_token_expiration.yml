@@ -1,0 +1,76 @@
+id: jwt_token_expiration
+learningObjectives:
+  - Handle JWT expiry on the front end and back end.
+hints:
+  - On the back end, verify the JWT and check the 'exp' claim to determine its
+    expiry status.
+  - On the front end, monitor error responses and redirect the user to the login
+    page in case of an 'unauthorized' error.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: Next, we'll tweak the expiration time on our JWT. The longer it lasts, the less our users will have to log in.
+          - text: Of course, we can't make it last forever. That's a bit too optimistic even for me.
+          - text: Change the expiration time to 1 hour and make sure to test it.
+          - text: Let me know how it goes, once you are done - :instruction[Open a PR with those changes and I'll review it.]
+
+trigger:
+  type: github_pr_lifecycle_status
+  flowNode:
+    switch:
+      key: "${eventType}"
+      cases:
+        github_pr_opened:
+          do:
+            - actionId: github_pr_comment
+              params:
+                person: lucca
+                message: "Reviewing this right now, let's see..."
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Got your PR, going over it right now."
+                    delay: 100
+        github_pr_workflow_complete_failure:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Make sure your fix passes all the checks, then try again please."
+                    delay: 3000
+            - actionId: github_pr_reject
+              params:
+                person: lucca
+                message: "Looks like this code change didn't resolve the issue. Can you take a second look?"
+        github_pr_workflow_complete_success:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Nice job, go ahead and merge this PR."
+                    delay: 2000
+            - actionId: github_pr_approve
+              params:
+                person: lucca
+                message: "Nailed it! Excellent job @${user.githubuser}! You can now merge the PR."
+        github_pr_merged:
+          do:
+            - actionId: bot_message
+              params:
+                person: lucca
+                messages:
+                  - text: "Good job buddy! Ready for another tweak?"
+                    delay: 1500
+            - actionId: finish_step
+githubActions:
+  backend:
+    capabilities:
+      - axios
+      - dotenv
+    testFile: "verify_expiration.js"
