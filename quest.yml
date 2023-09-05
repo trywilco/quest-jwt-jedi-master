@@ -8,7 +8,7 @@ summary: Great job! In this quest, you learned about JWT and how to implement
   JWT-based authentication in the Anythink app. You now understand the benefits
   of using JWT, the structure of a token, and best practices for token
   management. You also learned to securely store and transmit JWTs between the
-  front end and back end.
+  frontend and backend.
 skills:
   - frontend
   - backend

@@ -2,7 +2,7 @@ id: redirect_unauthorized_user
 learningObjectives:
   - Handling unauthorized requests
 hints:
-  - On the front end, create a new function that cheks if the user is logged in and if not redirect them to the login screen.
+  - On the frontend, create a new function that cheks if the user is logged in and if not redirect them to the login screen.
 startFlow:
   do:
     - actionId: bot_message

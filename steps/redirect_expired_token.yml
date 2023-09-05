@@ -1,6 +1,6 @@
 id: redirect_expired_token
 learningObjectives:
-  - Handle JWT expiry on the front end and back end.
+  - Handle JWT expiry on the frontend and backend.
 hints:
   - On the App.js try to decode the JWT and check if it's expired. If it is, redirect the user to the login screen.
 startFlow:

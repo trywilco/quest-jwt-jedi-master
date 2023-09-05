@@ -2,7 +2,7 @@ id: jwt_token_expiration
 learningObjectives:
   - Understanding JWT token expiration
 hints:
-  - On the back end, tries to find the variable that sets the expiartion time
+  - On the backend, tries to find the variable that sets the expiartion time
     for the JWT token.
 startFlow:
   do:

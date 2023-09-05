@@ -3,8 +3,7 @@ const axios = require("axios");
 const TEN_SECONDS = 10 * 1000;
 const HOUR_DIFFERENCE_IN_SECONDS = 3600;
 
-
-function parseJwt(token) {
+function parseJwtPayload(token) {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }
 
@@ -36,12 +35,12 @@ const runTest = async () => {
     timeout: TEN_SECONDS,
   });
   const token = await getToken(client);
-  const parsedToken = parseJwt(token);
+  const payload = parseJwtPayload(token);
   const currentTimestamp = Math.floor(Date.now() / 1000);
-  const timeDifferenceInSeconds = parsedToken.exp - currentTimestamp;
+  const timeDifferenceInSeconds = payload.exp - currentTimestamp;
 
   if (timeDifferenceInSeconds > HOUR_DIFFERENCE_IN_SECONDS) {
-    console.log(`=!=!=!=!= ERROR: The JWT token expiration date: ${new Date(parsedToken.exp * 1000)} is longer than one hour from the current time.`);
+    console.log(`=!=!=!=!= ERROR: The JWT token expiration date: ${new Date(payload.exp * 1000)} is longer than one hour from the current time.`);
     return false;
   }
 
@@ -51,6 +50,6 @@ const runTest = async () => {
 runTest()
   .then((res) => process.exit(res ? 0 : 1))
   .catch((e) => {
-    console.log("error while checking api: " + e);
+    console.log("error while running test: " + e);
     process.exit(1);
   });
