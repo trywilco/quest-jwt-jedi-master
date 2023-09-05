@@ -26,10 +26,9 @@ trigger:
           params:
             text: "${userMessageText}"
             strings: # verify all the JWT properties exist
-              - - id
-                - username
+              - - username
                 - exp
-                - iat
+                - sub
       then:
         do:
           - actionId: bot_message
