@@ -2,7 +2,7 @@ id: get_token
 learningObjectives:
   - Understand the JWT concept and its benefits.
 hints:
-  - Use a JWT debugger to help you decode the token.
+  - Use the chrome devtools to get the JWT from the localstorage.
 startFlow:
   do:
     - actionId: bot_message
