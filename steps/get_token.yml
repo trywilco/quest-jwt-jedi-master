@@ -3,6 +3,8 @@ learningObjectives:
   - Understand the JWT concept and its benefits.
 hints:
   - Use the chrome devtools to get the JWT from the localstorage.
+  - Use a JWT debugger to get the payload from the JWT.
+  - The JSON object should contain the username, exp and sub.
 startFlow:
   do:
     - actionId: bot_message
@@ -11,7 +13,7 @@ startFlow:
         messages:
           - text: Hey again! Lucca here. Ready for a new challenge?
           - text: We're going to get our hands dirty with JWT again. You're going to fetch the JWT from the current session and try to decode it.
-          - text: Your mission starts now! Log in to the Anythink market and let's see what's in the payload.
+          - text: Your mission starts now! **Log in to the Anythink market** and let's see what's in the payload.
           - text: "I'll be waiting for you here. :instruction[Decode the JWT token and send the **payload** JSON object to me]."
 trigger:
   type: user_message
