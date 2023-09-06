@@ -54,12 +54,12 @@ const getToken = async () => {
 describe("Check that the empty view shows upon no results", () => {
   let browser, page;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     browser = await puppeteer.launch();
     page = await browser.newPage();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await page.close();
     await browser.close();
   });
@@ -76,6 +76,10 @@ describe("Check that the empty view shows upon no results", () => {
   }, 60000);
 
   it("/settings page - goes to the settings page if the user is logged in", async () => {
+    await page.goto("http://localhost:3001", {
+      waitUntil: "load",
+      timeout: 60000,
+    });
     const token = await getToken();
     await page.evaluate((token) => {
       localStorage.setItem('jwt', token);
