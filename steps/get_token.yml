@@ -32,6 +32,8 @@ trigger:
                 - username
                 - exp
                 - iat
+              - - exp # Java JWT
+                - sub
       then:
         do:
           - actionId: bot_message
