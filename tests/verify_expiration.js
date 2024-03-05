@@ -36,7 +36,7 @@ const runTest = async () => {
   });
   const token = await getToken(client);
   const payload = parseJwtPayload(token);
-  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const currentTimestamp = Date.now() / 1000;
   const timeDifferenceInSeconds = payload.exp - currentTimestamp;
 
   if (timeDifferenceInSeconds > HOUR_DIFFERENCE_IN_SECONDS) {
