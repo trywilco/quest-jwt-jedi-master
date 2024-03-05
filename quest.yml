@@ -1,7 +1,7 @@
 id: jwt_jedi_master
 title: JWT Jedi Master
 subtitle: "Secure user authentication: Master JWT and apply it to Anythink"
-description: In the quest ahead, you'll dive deeper into JWT.
+description: In the quest ahead, you'll dive deep into JWT.
   You'll decode JWTs from user sessions, manage their expiration,
   handle request redirection on their expiration, and modify user flows based on JWT's authorization status.
 summary: Great job! In this quest, you learned about JWT and how to implement
