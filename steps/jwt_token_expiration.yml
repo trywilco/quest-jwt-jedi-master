@@ -2,15 +2,14 @@ id: jwt_token_expiration
 learningObjectives:
   - Understanding JWT token expiration
 hints:
-  - On the backend, tries to find the variable that sets the expiartion time
-    for the JWT token.
+  - Try to find the variable that sets the JWT expiration time in our backend.
 startFlow:
   do:
     - actionId: bot_message
       params:
         person: lucca
         messages:
-          - text: Next, we'll tweak the expiration time on our JWT. The longer it lasts, the less our users will have to log in.
+          - text: Next, we'll tweak the expiration time on our JWT. The longer it lasts, the less frequently our users will have to log in.
           - text: Of course, we can't make it last forever. That's a bit too optimistic even for me.
           - text: Change the expiration time to 1 hour and make sure to test it.
           - text: Let me know how it goes, once you are done - :instruction[Open a PR with those changes and I'll review it.]
