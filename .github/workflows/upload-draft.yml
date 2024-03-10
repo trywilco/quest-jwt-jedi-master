@@ -1,8 +1,6 @@
 name: Upload draft
 on:
   push:
-    branches:
-      - main
 
 jobs:
   upload-draft:
