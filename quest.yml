@@ -20,7 +20,6 @@ steps:
   - redirect_expired_token
   - redirect_unauthorized_user
 level: intermediate
-type: tutorial
 duration: 2
 repository: https://github.com/trywilco/Anythink-Market-Public
 frameworks:
